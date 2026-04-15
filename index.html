@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>The Neon Gala | Birthday Celebration</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Be+Vietnam+Pro:wght@300;400;500;700;900&amp;display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet">
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error": "#ff6e84",
+                        "primary-fixed": "#ff5af9",
+                        "tertiary": "#d575ff",
+                        "secondary-fixed": "#00eefc",
+                        "surface-container": "#1b1823",
+                        "primary-container": "#ff5af9",
+                        "secondary": "#00eefc",
+                        "background": "#0f0d16",
+                        "surface": "#0f0d16",
+                        "on-surface": "#f5eefc",
+                        "primary": "#ff7cf5"
+                    },
+                    "fontFamily": {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Be Vietnam Pro"]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0f0d16;
+            color: #f5eefc;
+            font-family: 'Be Vietnam Pro', sans-serif;
+            overflow-x: hidden;
+            cursor: default;
+            /* We add our own trail */
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .glow-secondary {
+            box-shadow: 0 0 20px rgba(0, 238, 252, 0.4);
+        }
+
+        .glass-panel {
+            background: rgba(20, 18, 28, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        /* Animated Gradient Background */
+        .bg-celebration-burst {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at 20% 30%, rgba(255, 124, 245, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(0, 238, 252, 0.2) 0%, transparent 50%);
+            animation: gradientMove 10s ease-in-out infinite alternate;
+        }
+
+        @keyframes gradientMove {
+            0% {
+                transform: scale(1) translate(0, 0);
+            }
+
+            100% {
+                transform: scale(1.2) translate(-5%, 5%);
+            }
+        }
+
+        /* Screen Shake */
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1.05);
+            }
+
+            10%,
+            30%,
+            50%,
+            70%,
+            90% {
+                transform: translate(-5px, 5px) scale(1.05);
+            }
+
+            20%,
+            40%,
+            60%,
+            80% {
+                transform: translate(5px, -5px) scale(1.05);
+            }
+        }
+
+        .shake {
+            animation: shake 0.6s cubic-bezier(.36, .07, .19, .97) both;
+        }
+
+        /* Neon Pulse Overlay */
+        @keyframes neonPulse {
+            0% {
+                background-color: rgba(255, 124, 245, 0);
+            }
+
+            30% {
+                background-color: rgba(255, 124, 245, 0.4);
+            }
+
+            100% {
+                background-color: rgba(255, 124, 245, 0);
+            }
+        }
+
+        .neon-pulse {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 100;
+            pointer-events: none;
+            animation: neonPulse 1s ease-out forwards;
+        }
+
+        /* Floating Particles / Cursor Trail */
+        .cursor-particle {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            background: #00eefc;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            box-shadow: 0 0 10px #00eefc, 0 0 20px #ff5af9;
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+
+        /* Wave Text Effect */
+        .wave-text {
+            color: transparent;
+            text-shadow: 0 0 20px rgba(255, 90, 249, 0.8), 0 0 40px rgba(0, 238, 252, 0.6);
+            display: inline-block;
+        }
+
+        .wave-text span {
+            display: inline-block;
+            animation: wave 1.5s ease-in-out infinite;
+        }
+
+        @keyframes wave {
+
+            0%,
+            100% {
+                transform: translateY(0) scale(1);
+            }
+
+            50% {
+                transform: translateY(-15px) scale(1.1);
+                color: #fff;
+                text-shadow: 0 0 30px #00eefc;
+            }
+        }
+
+        /* Balloons */
+        .balloon {
+            position: fixed;
+            bottom: -150px;
+            width: 60px;
+            height: 80px;
+            border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+            box-shadow: inset -5px -5px 10px rgba(0, 0, 0, 0.2), 0 0 25px rgba(255, 124, 245, 0.8);
+            animation: floatUp 8s linear infinite forwards;
+            cursor: pointer;
+            z-index: 80;
+            transition: transform 0.1s;
+        }
+
+        .balloon::before {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-bottom: 10px solid currentColor;
+            filter: brightness(0.8);
+        }
+
+        .balloon::after {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.6);
+        }
+
+        @keyframes floatUp {
+            0% {
+                bottom: -100px;
+                transform: translateX(0) scale(1);
+            }
+
+            50% {
+                transform: translateX(30px) scale(1.05);
+            }
+
+            100% {
+                bottom: 120vh;
+                transform: translateX(-30px) scale(1);
+            }
+        }
+
+        /* Gift Boxes */
+        .gift-box {
+            position: fixed;
+            width: 80px;
+            height: 80px;
+            bottom: 20%;
+            border-radius: 12px;
+            cursor: pointer;
+            z-index: 85;
+            animation: giftFloat 4s ease-in-out infinite;
+            transition: all 0.3s;
+        }
+
+        .gift-box:hover {
+            transform: scale(1.15) translateY(-10px);
+        }
+
+        .gift-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .gift-box::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            width: 100%;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        @keyframes giftFloat {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-25px);
+            }
+        }
+
+        /* Share Button */
+        .share-btn-container {
+            opacity: 0;
+            transform: translateY(20px) scale(0.9);
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
+            display: none;
+        }
+
+        .share-btn-container.visible {
+            display: flex;
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: auto;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col selection:bg-secondary selection:text-on-secondary-fixed">
+    <div id="app-wrapper"
+        class="transition-transform duration-[1000ms] ease-in-out w-full h-full min-h-screen flex flex-col origin-center">
+        <!-- Celebration Burst Background -->
+        <div class="bg-celebration-burst"></div>
+
+        <!-- TopNavBar -->
+        <nav
+            class="fixed top-0 w-full z-50 border-b border-white/10 bg-zinc-950/60 backdrop-blur-xl flex justify-between items-center px-8 h-20 shadow-[0_0_40px_rgba(0,238,252,0.15)] font-['Plus_Jakarta_Sans'] tracking-tight">
+            <div
+                class="text-2xl font-bold tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-400 to-cyan-400">
+                Neon Gala</div>
+            <div class="flex items-center gap-2 text-xs sm:text-sm text-zinc-400 font-medium bg-surface/50 px-3 py-1.5 rounded-full border border-white/5 shadow-inner">
+                <span class="hidden sm:inline">Created by</span>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-secondary to-primary font-bold">Angsuman Gowami</span>
+            </div>
+        </nav>
+
+        <!-- Main Content Canvas -->
+        <main class="flex-grow flex flex-col items-center justify-center pt-24 pb-12 px-6 relative z-10"
+            id="main-container">
+
+            <div class="max-w-4xl w-full flex flex-col items-center text-center space-y-12">
+
+                <!-- Main Title Area (Slightly asymmetric and playful) -->
+                <div class="relative w-full mb-8">
+                    <!-- Fun floating badge -->
+                    <div id="sub-headline"
+                        class="absolute -top-10 -left-2 md:-left-8 rotate-[-8deg] bg-secondary text-surface px-4 py-2 rounded-sm font-black text-xs tracking-widest uppercase shadow-[4px_4px_0px_0px_#ff5af9] transition-opacity z-20">
+                        Party Mode: ON 🚀
+                    </div>
+                    <!-- Left aligned punchy text -->
+                    <h1 id="main-headline"
+                        class="font-headline text-6xl md:text-8xl font-extrabold tracking-tighter leading-tight transition-transform text-left">
+                        <span class="block text-white mb-2">IT'S TIME TO</span>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-br from-primary via-tertiary to-secondary">GET LIT!</span>
+                    </h1>
+                </div>
+
+                <!-- Digital Ticket UI -->
+                <div id="input-card"
+                    class="w-full max-w-2xl glass-panel relative transition-all duration-700 rounded-3xl border border-white/10 overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-72 h-72 bg-primary/10 blur-3xl -translate-y-1/2 translate-x-1/4 rounded-full group-hover:bg-primary/20 transition-colors"></div>
+                    <div class="absolute bottom-0 left-0 w-56 h-56 bg-secondary/10 blur-2xl translate-y-1/4 -translate-x-1/4 rounded-full group-hover:bg-secondary/20 transition-colors"></div>
+
+                    <div class="relative bg-zinc-900/40 p-8 md:p-12 flex flex-col items-start backdrop-blur-md">
+                        <!-- Ticket header -->
+                        <div class="w-full flex justify-between items-center border-b border-white/10 pb-6 mb-8">
+                            <div class="text-left">
+                                <div class="text-[10px] text-zinc-400 font-bold uppercase tracking-widest mb-1">VIP Access Pass</div>
+                                <div class="text-white/60 font-mono text-xs">#GLXY-778-9</div>
+                            </div>
+                            <span class="material-symbols-outlined text-primary text-4xl opacity-50">qr_code_2</span>
+                        </div>
+
+                        <!-- Guest Name Display -->
+                        <div class="mb-10 w-full text-left mt-2">
+                            <label class="block text-xs font-bold uppercase tracking-widest text-zinc-400 mb-4">Guest of Honor</label>
+                            
+                            <div class="flex items-center gap-6">
+                                <!-- Glowing Avatar Container -->
+                                <div class="relative w-20 h-20 md:w-24 md:h-24 rounded-full p-[3px] bg-gradient-to-tr from-primary via-tertiary to-secondary shadow-[0_0_30px_rgba(255,124,245,0.3)] shrink-0 group-hover:scale-105 transition-transform duration-500 hover:shadow-[0_0_40px_rgba(0,238,252,0.4)] cursor-pointer">
+                                    <!-- Avatar Image -->
+                                    <img src="gaurav.jpg" alt="Gaurav" class="w-full h-full object-cover rounded-full border-4 border-zinc-900 bg-zinc-800">
+                                    <!-- Verification Badge -->
+                                    <div class="absolute -bottom-1 -right-1 bg-zinc-900 rounded-full p-1 shadow-lg">
+                                        <span class="material-symbols-outlined text-secondary text-lg block">verified</span>
+                                    </div>
+                                </div>
+
+                                <!-- Name -->
+                                <div class="text-5xl md:text-7xl font-black text-white tracking-tight drop-shadow-[0_2px_15px_rgba(255,124,245,0.4)] relative inline-block">
+                                    Gaurav 
+                                    <span class="absolute -top-4 -right-8 text-secondary text-3xl animate-pulse">✨</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Hidden input to keep script happy -->
+                            <input type="hidden" id="friend-name" value="Gaurav">
+                        </div>
+
+                        <button id="celebrate-btn"
+                            class="w-full relative overflow-hidden group py-5 rounded-2xl bg-zinc-800 text-white text-xl md:text-2xl font-black font-headline tracking-tighter hover:scale-[1.02] shadow-xl hover:shadow-[0_0_40px_rgba(0,238,252,0.3)] active:scale-95 transition-all flex items-center justify-center gap-3 border border-white/5">
+                            <div class="absolute inset-0 bg-gradient-to-r from-secondary to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                            <span class="relative z-10 flex items-center gap-3">Drop The Beat 🎧</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Share Surpise Section -->
+                <div id="share-btn-container" class="share-btn-container justify-center items-center mt-12 w-full">
+                    <button id="share-btn"
+                        class="bg-surface-container-highest text-secondary border border-secondary/40 px-8 py-4 rounded-full font-bold text-lg hover:bg-secondary hover:text-on-secondary-fixed transition-all flex items-center gap-3 shadow-[0_0_20px_rgba(0,238,252,0.3)]">
+                        Share this surprise 💌
+                        <span class="material-symbols-outlined">send</span>
+                    </button>
+                </div>
+            </div>
+        </main>
+
+        <!-- Base UI that gets hidden conditionally -->
+        <div id="extra-content"
+            class="w-full max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-6 opacity-100 transition-opacity duration-500 mb-32 z-10 relative">
+            <div class="glass-panel p-8 rounded-lg border-t border-outline-variant/15 text-left space-y-4">
+                <span class="material-symbols-outlined text-secondary text-4xl">electric_bolt</span>
+                <h3 class="font-headline font-bold text-xl">Neon Visuals</h3>
+                <p class="text-zinc-500 text-sm">Dynamic light shows reacting to every beat of the night.</p>
+            </div>
+            <div class="glass-panel p-8 rounded-lg border-t border-outline-variant/15 text-left space-y-4">
+                <span class="material-symbols-outlined text-primary text-4xl">celebration</span>
+                <h3 class="font-headline font-bold text-xl">Digital Favors</h3>
+                <p class="text-zinc-500 text-sm">Exclusive NFT party favors for all verified guests.</p>
+            </div>
+            <div class="glass-panel p-8 rounded-lg border-t border-outline-variant/15 text-left space-y-4">
+                <span class="material-symbols-outlined text-tertiary text-4xl">confirmation_number</span>
+                <h3 class="font-headline font-bold text-xl">Fast Track</h3>
+                <p class="text-zinc-500 text-sm">Priority entry code sent directly to your device.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const celebrateBtn = document.getElementById('celebrate-btn');
+            const nameInput = document.getElementById('friend-name');
+            const headline = document.getElementById('main-headline');
+            const subHeadline = document.getElementById('sub-headline');
+            const appWrapper = document.getElementById('app-wrapper');
+            const inputCard = document.getElementById('input-card');
+            const extraContent = document.getElementById('extra-content');
+            const shareContainer = document.getElementById('share-btn-container');
+            const shareBtn = document.getElementById('share-btn');
+
+            // Share Button Functionality
+            shareBtn.addEventListener('click', async () => {
+                const shareData = {
+                    title: 'The Neon Gala Celebration',
+                    text: 'You are invited! Join the immersive neon birthday celebration! 🎉',
+                    url: window.location.href
+                };
+
+                try {
+                    if (navigator.share) {
+                        // Triggers native mobile share sheet
+                        await navigator.share(shareData);
+                    } else {
+                        // Fallback for desktops: copy to clipboard
+                        await navigator.clipboard.writeText(window.location.href);
+                        const originalText = shareBtn.innerHTML;
+                        shareBtn.innerHTML = `Link Copied! ✨ <span class="material-symbols-outlined">check_circle</span>`;
+                        setTimeout(() => shareBtn.innerHTML = originalText, 3000);
+                    }
+                } catch (err) {
+                    console.error('Sharing failed', err);
+                }
+            });
+
+            // Audio assets mapping (using standard royalty-free/public CDNs)
+            const popSound = new Audio('https://cdn.pixabay.com/download/audio/2022/03/15/audio_24a2c07011.mp3?filename=pop-39222.mp3');
+            const cheerSound = new Audio('https://cdn.pixabay.com/download/audio/2021/08/04/audio_0625c1539c.mp3?filename=small-crowd-applause-and-cheers-101138.mp3');
+            const musicSound = new Audio('https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3?filename=electronic-future-beats-117997.mp3');
+            musicSound.loop = true;
+            musicSound.volume = 0.4;
+
+            // Glowing Cursor Trail
+            let lastSpawn = 0;
+            document.addEventListener('mousemove', (e) => {
+                const now = Date.now();
+                if (now - lastSpawn < 30) return; // 30ms throttle for performance
+                lastSpawn = now;
+
+                const particle = document.createElement('div');
+                particle.className = 'cursor-particle';
+                particle.style.left = (e.clientX - 4) + 'px';
+                particle.style.top = (e.clientY - 4) + 'px';
+                document.body.appendChild(particle);
+
+                setTimeout(() => {
+                    particle.style.opacity = '0';
+                    particle.style.transform = 'scale(2.5)';
+                }, 100);
+
+                setTimeout(() => particle.remove(), 600);
+            });
+
+            let isCelebrating = false;
+
+            celebrateBtn.addEventListener('click', () => {
+                if (isCelebrating) return;
+                const name = nameInput.value.trim().toUpperCase() || 'FRIEND';
+
+                isCelebrating = true;
+
+                // Music start (depends on browser policy, usually allowed here due to click interaction)
+                musicSound.play().catch(e => console.log('Autoplay blocked', e));
+
+                // 1. Camera Zoom & Shake
+                appWrapper.classList.add('shake');
+                appWrapper.style.transform = 'scale(1.03)';
+
+                // 2. Neon Pulse Mask across UI
+                const pulse = document.createElement('div');
+                pulse.className = 'neon-pulse';
+                document.body.appendChild(pulse);
+                setTimeout(() => pulse.remove(), 1000);
+
+                // 3. Fade out Input and Grid
+                inputCard.style.opacity = '0';
+                inputCard.style.transform = 'scale(0.9) translateY(40px)';
+                extraContent.style.opacity = '0';
+                subHeadline.style.opacity = '0';
+
+                setTimeout(() => {
+                    inputCard.style.display = 'none';
+                    extraContent.style.display = 'none';
+                    subHeadline.style.display = 'none';
+
+                    // 4. Headline transform & Typing effect -> Wave -> Glow
+                    headline.innerHTML = '';
+                    headline.className = "wave-text text-5xl md:text-8xl font-black tracking-widest text-center mt-20";
+
+                    const lines = ["HAPPY BIRTHDAY", name];
+                    cheerSound.play().catch(() => { });
+
+                    let globalCharIndex = 0;
+
+                    lines.forEach((line, lineIndex) => {
+                        const lineDiv = document.createElement('div');
+                        lineDiv.className = lineIndex === 0 ? "mb-6 text-white text-4xl md:text-6xl drop-shadow-[0_0_10px_#fff]" : "text-transparent bg-clip-text bg-gradient-to-r from-primary-fixed to-secondary-fixed text-6xl md:text-9xl";
+                        headline.appendChild(lineDiv);
+
+                        for (let i = 0; i < line.length; i++) {
+                            const char = line[i] === ' ' ? '&nbsp;' : line[i];
+                            const span = document.createElement('span');
+                            span.innerHTML = char;
+                            span.style.opacity = '0';
+                            span.style.transform = 'scale(0.5)';
+                            span.style.transition = 'all 0.3s cubic-bezier(.17,.89,.32,1.28)';
+                            // We assign animation after reveal
+                            lineDiv.appendChild(span);
+
+                            setTimeout(() => {
+                                span.style.opacity = '1';
+                                span.style.transform = 'scale(1)';
+
+                                // Micro confetti pop for each letter typed
+                                if (line[i] !== ' ') {
+                                    const rect = span.getBoundingClientRect();
+                                    confetti({
+                                        particleCount: 3,
+                                        spread: 30,
+                                        origin: { x: rect.left / window.innerWidth, y: rect.top / window.innerHeight },
+                                        colors: lineIndex === 0 ? ['#ffffff'] : ['#ff5af9', '#00eefc'],
+                                        zIndex: 1000
+                                    });
+                                }
+
+                                // Attach wave animation shortly after
+                                setTimeout(() => {
+                                    span.style.animationDelay = `${globalCharIndex * 0.15}s`;
+                                    span.style.animation = `wave 1.5s ease-in-out infinite`;
+                                    span.style.animationDelay = `${i * 0.1}s`;
+                                }, 500);
+
+                            }, globalCharIndex * 150);
+
+                            globalCharIndex++;
+                        }
+                    });
+
+                    // 5. Huge Confetti Burst once text is fully typed
+                    setTimeout(() => {
+                        confetti({
+                            particleCount: 200,
+                            spread: 120,
+                            startVelocity: 50,
+                            origin: { y: 0.6 },
+                            colors: ['#ff5af9', '#b90afc', '#00eefc', '#ffffff'],
+                            zIndex: 9999
+                        });
+
+                        startFireworks();
+                        startImmersiveSpawns();
+
+                        // Show share button shortly after
+                        setTimeout(() => {
+                            shareContainer.classList.add('visible');
+                        }, 4000);
+
+                    }, globalCharIndex * 150 + 500);
+
+                }, 700);
+            });
+
+            function startFireworks() {
+                const duration = 20 * 1000;
+                const animationEnd = Date.now() + duration;
+                const colors = ['#ff5af9', '#00eefc', '#ffffff'];
+
+                (function frame() {
+                    // Screen shake synced to "beats" sporadically
+                    if (Math.random() < 0.05) {
+                        appWrapper.classList.remove('shake');
+                        void appWrapper.offsetWidth; // reflow
+                        appWrapper.classList.add('shake');
+                    }
+
+                    // Firework bursts on sides
+                    confetti({
+                        particleCount: 5, angle: 60, spread: 55, startVelocity: Math.random() * 20 + 20,
+                        origin: { x: Math.random() * 0.2 }, colors: colors, zIndex: 999
+                    });
+                    confetti({
+                        particleCount: 5, angle: 120, spread: 55, startVelocity: Math.random() * 20 + 20,
+                        origin: { x: Math.random() * 0.2 + 0.8 }, colors: colors, zIndex: 999
+                    });
+
+                    if (Date.now() < animationEnd) {
+                        requestAnimationFrame(frame);
+                    } else {
+                        // Loop smaller bursts indefinitely
+                        setInterval(() => {
+                            confetti({ particleCount: 20, origin: { y: Math.random() * 0.5 + 0.5, x: Math.random() }, colors: colors, zIndex: 999 });
+                        }, 1500);
+                    }
+                }());
+            }
+
+            function startImmersiveSpawns() {
+                // Continuous Interactive Balloons
+                setInterval(() => {
+                    const b = document.createElement('div');
+                    b.className = 'balloon';
+                    b.style.left = Math.random() * 85 + 5 + 'vw';
+
+                    const isBlue = Math.random() > 0.5;
+                    b.style.background = isBlue ?
+                        'radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.9), rgba(0, 238, 252, 0.9))' :
+                        'radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.9), rgba(255, 124, 245, 0.9))';
+                    b.style.color = isBlue ? 'rgba(0, 238, 252, 0.9)' : 'rgba(255, 124, 245, 0.9)';
+
+                    b.onclick = () => {
+                        const p = popSound.cloneNode(true);
+                        p.volume = 0.6; p.play().catch(() => { });
+                        const rect = b.getBoundingClientRect();
+                        confetti({
+                            particleCount: 30, spread: 60, startVelocity: 30,
+                            origin: { x: (rect.left + rect.width / 2) / window.innerWidth, y: (rect.top + rect.height / 2) / window.innerHeight },
+                            colors: isBlue ? ['#00eefc', '#ffffff'] : ['#ff5af9', '#ffffff'],
+                            zIndex: 9999
+                        });
+                        b.style.opacity = '0';
+                        setTimeout(() => b.remove(), 100);
+                    };
+
+                    document.body.appendChild(b);
+                    setTimeout(() => { if (b.parentNode) b.remove(); }, 8000);
+                }, 1200);
+
+                // Spawn Hovering Interactive Gift Boxes
+                const spawnGift = (left, delay, gradColors, textStr) => {
+                    setTimeout(() => {
+                        const gift = document.createElement('div');
+                        gift.className = 'gift-box';
+                        gift.style.left = left;
+                        gift.style.background = `linear-gradient(135deg, ${gradColors[0]}, ${gradColors[1]})`;
+                        gift.innerHTML = `<span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 material-symbols-outlined text-white opacity-80 text-3xl">redeem</span>`;
+
+                        gift.onclick = () => {
+                            const rect = gift.getBoundingClientRect();
+                            confetti({
+                                particleCount: 150, spread: 180, startVelocity: 40,
+                                origin: { x: (rect.left + rect.width / 2) / window.innerWidth, y: (rect.top + rect.height / 2) / window.innerHeight },
+                                colors: gradColors, zIndex: 9999
+                            });
+                            gift.innerHTML = `<div class="absolute -top-12 left-1/2 -translate-x-1/2 text-2xl font-black text-white whitespace-nowrap drop-shadow-[0_0_15px_${gradColors[0]}] animate-bounce">${textStr}</div>`;
+                            gift.style.transform = 'scale(1.4) rotate(10deg)';
+                            setTimeout(() => { gift.style.opacity = '0'; setTimeout(() => gift.remove(), 500); }, 2500);
+                        };
+                        document.body.appendChild(gift);
+                    }, delay);
+                };
+
+                spawnGift('15%', 2000, ['#ff5af9', '#b90afc'], '🎉 SURPRISE!');
+                spawnGift('80%', 3500, ['#00eefc', '#005e64'], '✨ MAGIC!');
+                spawnGift('50%', 6000, ['#ffee00', '#ff5af9'], '🎁 FOR YOU!');
+            }
+        });
+    </script>
+</body>
+
+</html>
