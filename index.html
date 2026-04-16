@@ -1,465 +1,108 @@
-<!DOCTYPE html>  
-<html class="dark" lang="en">  
-    <head>  
-    <meta charset="utf-8">  
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">  
-    <title>The Warm Gala | Birthday Celebration</title>  
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>  
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>  
-    <link  
-        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Be+Vietnam+Pro:wght@300;400;500;700;900&amp;display=swap"  
-        rel="stylesheet">  
-    <link  
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"  
-        rel="stylesheet">  
-    <script id="tailwind-config">  
-        tailwind.config = {  
-            darkMode: "class",  
-            theme: {  
-                extend: {  
-                    "colors": {  
-                        "error": "#ff6e84",  
-                        "primary-fixed": "#e88d67",  
-                        "tertiary": "#c3a995",  
-                        "secondary-fixed": "#e2b865",  
-                        "surface-container": "#2c2624",  
-                        "primary-container": "#e88d67",  
-                        "secondary": "#e2b865",  
-                        "background": "#1e1a18",  
-                        "surface": "#1e1a18",  
-                        "on-surface": "#f5f0eb",  
-                        "primary": "#e88d67"  
-                    },  
-                    "fontFamily": {  
-                        "headline": ["Plus Jakarta Sans"],  
-                        "body": ["Be Vietnam Pro"]  
-                    }  
-                },  
-            },  
-        }  
-    </script>  
-    <style>  
-        body {  
-            background-color: #1e1a18;  
-            color: #f5f0eb;  
-            font-family: 'Be Vietnam Pro', sans-serif;  
-            overflow-x: hidden;  
-            cursor: default;  
-            /* We add our own trail */  
-        }  .material-symbols-outlined {  
-        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;  
-    }  
+<!DOCTYPE html>
+<html class="dark" lang="en">
 
-    .glow-secondary {  
-        box-shadow: 0 0 20px rgba(226, 184, 101, 0.4);  
-    }  
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Rajdeep's Birthday</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Be+Vietnam+Pro:wght@300;400;500;700;900&amp;display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet">
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error": "#ff6e84",
+                        "primary-fixed": "#e88d67",
+                        "tertiary": "#c3a995",
+                        "secondary-fixed": "#e2b865",
+                        "surface-container": "#2c2624",
+                        "primary-container": "#e88d67",
+                        "secondary": "#e2b865",
+                        "background": "#1e1a18",
+                        "surface": "#1e1a18",
+                        "on-surface": "#f5f0eb",
+                        "primary": "#e88d67"
+                    },
+                    "fontFamily": {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Be Vietnam Pro"]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            background-color: #1e1a18;
+            color: #f5f0eb;
+            font-family: 'Be Vietnam Pro', sans-serif;
+            overflow-x: hidden;
+            cursor: default;
+            /* We add our own trail */
+        }
 
-    .glass-panel {  
-        background: rgba(44, 38, 36, 0.6);  
-        backdrop-filter: blur(20px);  
-        -webkit-backdrop-filter: blur(20px);  
-    }  
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
 
-    /* Animated Gradient Background */  
-    .bg-celebration-burst {  
-        position: fixed;  
-        top: 0;  
-        left: 0;  
-        width: 100%;  
-        height: 100%;  
-        z-index: -1;  
-        background: radial-gradient(circle at 20% 30%, rgba(232, 141, 103, 0.15) 0%, transparent 50%),  
-            radial-gradient(circle at 80% 70%, rgba(226, 184, 101, 0.15) 0%, transparent 50%);  
-        animation: gradientMove 10s ease-in-out infinite alternate;  
-    }  
+        .glow-secondary {
+            box-shadow: 0 0 20px rgba(226, 184, 101, 0.4);
+        }
 
-    @keyframes gradientMove {  
-        0% {  
-            transform: scale(1) translate(0, 0);  
-        }  
+        .glass-panel {
+            background: rgba(44, 38, 36, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
 
-        100% {  
-            transform: scale(1.2) translate(-5%, 5%);  
-        }  
-    }  
+        /* Animated Gradient Background */
+        .bg-celebration-burst {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at 20% 30%, rgba(232, 141, 103, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(226, 184, 101, 0.15) 0%, transparent 50%);
+            animation: gradientMove 10s ease-in-out infinite alternate;
+        }
 
-    /* Screen Shake */  
-    @keyframes shake {  
+        @keyframes gradientMove {
+            0% {
+                transform: scale(1) translate(0, 0);
+            }
 
-        0%,  
-        100% {  
-            transform: translate(0, 0) scale(1.05);  
-        }  
+            100% {
+                transform: scale(1.2) translate(-5%, 5%);
+            }
+        }
 
-        10%,  
-        30%,  
-        50%,  
-        70%,  
-        90% {  
-            transform: translate(-5px, 5px) scale(1.05);  
-        }  
+        /* Screen Shake */
+        @keyframes shake {
 
-        20%,  
-        40%,  
-        60%,  
-        80% {  
-            transform: translate(5px, -5px) scale(1.05);  
-        }  
-    }  
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1.05);
+            }
 
-    .shake {  
-        animation: shake 0.6s cubic-bezier(.36, .07, .19, .97) both;  
-    }  
+            10%,
+            30%,
+            50%,
+            70%,
+            90% {
+                transform: translate(-5px, 5px) scale(1.05);
+            }
 
-    /* Neon Pulse Overlay */  
-    @keyframes neonPulse {  
-        0% {  
-            background-color: rgba(232, 141, 103, 0);  
-        }  
-
-        30% {  
-            background-color: rgba(232, 141, 103, 0.3);  
-        }  
-
-        100% {  
-            background-color: rgba(232, 141, 103, 0);  
-        }  
-    }  
-
-    .neon-pulse {  
-        position: fixed;  
-        top: 0;  
-        left: 0;  
-        width: 100%;  
-        height: 100%;  
-        z-index: 100;  
-        pointer-events: none;  
-        animation: neonPulse 1s ease-out forwards;  
-    }  
-
-    /* Floating Particles / Cursor Trail */  
-    .cursor-particle {  
-        position: fixed;  
-        width: 8px;  
-        height: 8px;  
-        background: #e2b865;  
-        border-radius: 50%;  
-        pointer-events: none;  
-        z-index: 9999;  
-        box-shadow: 0 0 10px #e2b865, 0 0 20px #e88d67;  
-        transition: opacity 0.5s ease-out, transform 0.5s ease-out;  
-    }  
-
-    /* Wave Text Effect */  
-    .wave-text {  
-        color: transparent;  
-        text-shadow: 0 0 20px rgba(232, 141, 103, 0.8), 0 0 40px rgba(226, 184, 101, 0.6);  
-        display: inline-block;  
-    }  
-
-    .wave-text span {  
-        display: inline-block;  
-        animation: wave 1.5s ease-in-out infinite;  
-    }  
-
-    @keyframes wave {  
-
-        0%,  
-        100% {  
-            transform: translateY(0) scale(1);  
-        }  
-
-        50% {  
-            transform: translateY(-15px) scale(1.1);  
-            color: #fff;  
-            text-shadow: 0 0 30px #e2b865;  
-        }  
-    }  
-
-    /* Balloons */  
-    .balloon {  
-        position: fixed;  
-        bottom: -150px;  
-        width: 60px;  
-        height: 80px;  
-        border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;  
-        box-shadow: inset -5px -5px 10px rgba(0, 0, 0, 0.2), 0 0 25px rgba(232, 141, 103, 0.6);  
-        animation: floatUp 8s linear infinite forwards;  
-        cursor: pointer;  
-        z-index: 80;  
-        transition: transform 0.1s;  
-    }  
-
-    .balloon::before {  
-        content: '';  
-        position: absolute;  
-        bottom: -12px;  
-        left: 50%;  
-        transform: translateX(-50%);  
-        border-left: 5px solid transparent;  
-        border-right: 5px solid transparent;  
-        border-bottom: 10px solid currentColor;  
-        filter: brightness(0.8);  
-    }  
-
-    .balloon::after {  
-        content: '';  
-        position: absolute;  
-        bottom: -50px;  
-        left: 50%;  
-        transform: translateX(-50%);  
-        width: 1px;  
-        height: 40px;  
-        background: rgba(255, 255, 255, 0.6);  
-    }  
-
-    @keyframes floatUp {  
-        0% {  
-            bottom: -100px;  
-            transform: translateX(0) scale(1);  
-        }  
-
-        50% {  
-            transform: translateX(30px) scale(1.05);  
-        }  
-
-        100% {  
-            bottom: 120vh;  
-            transform: translateX(-30px) scale(1);  
-        }  
-    }  
-
-    /* Gift Boxes */  
-    .gift-box {  
-        position: fixed;  
-        width: 80px;  
-        height: 80px;  
-        bottom: 20%;  
-        border-radius: 12px;  
-        cursor: pointer;  
-        z-index: 85;  
-        animation: giftFloat 4s ease-in-out infinite;  
-        transition: all 0.3s;  
-    }  
-
-    .gift-box:hover {  
-        transform: scale(1.15) translateY(-10px);  
-    }  
-
-    .gift-box::before {  
-        content: '';  
-        position: absolute;  
-        top: 0;  
-        left: 50%;  
-        transform: translateX(-50%);  
-        width: 20px;  
-        height: 100%;  
-        background: rgba(255, 255, 255, 0.4);  
-        box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);  
-    }  
-
-    .gift-box::after {  
-        content: '';  
-        position: absolute;  
-        top: 50%;  
-        left: 0;  
-        transform: translateY(-50%);  
-        width: 100%;  
-        height: 20px;  
-        background: rgba(255, 255, 255, 0.4);  
-        box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);  
-    }  
-
-    @keyframes giftFloat {  
-
-        0%,  
-        100% {  
-            transform: translateY(0);  
-        }  
-
-        50% {  
-            transform: translateY(-25px);  
-        }  
-    }  
-
-    /* Share Button */  
-    .share-btn-container {  
-        opacity: 0;  
-        transform: translateY(20px) scale(0.9);  
-        transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);  
-        pointer-events: none;  
-        display: none;  
-    }  
-
-    .share-btn-container.visible {  
-        display: flex;  
-        opacity: 1;  
-        transform: translateY(0) scale(1);  
-        pointer-events: auto;  
-    }  
-</style>
-
-</head>  <body class="min-h-screen flex flex-col selection:bg-secondary selection:text-on-secondary-fixed">  
-    <div id="app-wrapper"  
-        class="transition-transform duration-[1000ms] ease-in-out w-full h-full min-h-screen flex flex-col origin-center">  
-        <!-- Celebration Burst Background -->  
-        <div class="bg-celebration-burst"></div>  <!-- TopNavBar -->  
-    <nav  
-        class="fixed top-0 w-full z-50 border-b border-white/10 bg-stone-900/60 backdrop-blur-xl flex justify-between items-center px-8 h-20 shadow-[0_0_40px_rgba(226,184,101,0.15)] font-['Plus_Jakarta_Sans'] tracking-tight">  
-        <div  
-            class="text-2xl font-bold tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">  
-            Warm Gala</div>  
-        <div class="flex items-center gap-2 text-xs sm:text-sm text-stone-300 font-medium bg-surface/50 px-3 py-1.5 rounded-full border border-white/5 shadow-inner">  
-            <span class="hidden sm:inline">Created by</span>  
-            <span class="text-transparent bg-clip-text bg-gradient-to-r from-secondary to-primary font-bold">Angsuman Gowami</span>  
-        </div>  
-    </nav>  
-
-    <!-- Main Content Canvas -->  
-    <main class="flex-grow flex flex-col items-center justify-center pt-24 pb-12 px-6 relative z-10"  
-        id="main-container">  
-
-        <div class="max-w-4xl w-full flex flex-col items-center text-center space-y-12">  
-
-            <!-- Main Title Area (Slightly asymmetric and playful) -->  
-            <div class="relative w-full mb-8">  
-                <!-- Fun floating badge -->  
-                <div id="sub-headline"  
-                    class="absolute -top-10 -left-2 md:-left-8 rotate-[-8deg] bg-secondary text-surface px-4 py-2 rounded-sm font-black text-xs tracking-widest uppercase shadow-[4px_4px_0px_0px_#e88d67] transition-opacity z-20">  
-                    Warm Wishes ✨  
-                </div>  
-                <!-- Left aligned punchy text -->  
-                <h1 id="main-headline"  
-                    class="font-headline text-6xl md:text-8xl font-extrabold tracking-tighter leading-tight transition-transform text-left">  
-                    <span class="block text-white mb-2">IT'S TIME TO</span>  
-                    <span class="text-transparent bg-clip-text bg-gradient-to-br from-primary via-tertiary to-secondary">CELEBRATE!</span>  
-                </h1>  
-            </div>  
-
-            <!-- Digital Ticket UI -->  
-            <div id="input-card"  
-                class="w-full max-w-2xl glass-panel relative transition-all duration-700 rounded-3xl border border-white/10 overflow-hidden group">  
-                <div class="absolute top-0 right-0 w-72 h-72 bg-primary/10 blur-3xl -translate-y-1/2 translate-x-1/4 rounded-full group-hover:bg-primary/20 transition-colors"></div>  
-                <div class="absolute bottom-0 left-0 w-56 h-56 bg-secondary/10 blur-2xl translate-y-1/4 -translate-x-1/4 rounded-full group-hover:bg-secondary/20 transition-colors"></div>  
-
-                <div class="relative bg-stone-900/60 p-8 md:p-12 flex flex-col items-start backdrop-blur-md">  
-                    <!-- Ticket header -->  
-                    <div class="w-full flex justify-between items-center border-b border-white/10 pb-6 mb-8">  
-                        <div class="text-left">  
-                            <div class="text-[10px] text-stone-400 font-bold uppercase tracking-widest mb-1">VIP Access Pass</div>  
-                            <div class="text-white/60 font-mono text-xs">#GLXY-778-9</div>  
-                        </div>  
-                        <span class="material-symbols-outlined text-primary text-4xl opacity-50">qr_code_2</span>  
-                    </div>  
-
-                    <!-- Guest Name Display -->  
-                    <div class="mb-10 w-full text-left mt-2">  
-                        <label class="block text-xs font-bold uppercase tracking-widest text-stone-400 mb-4">Guest of Honor</label>  
-                          
-                        <div class="flex items-center gap-6">  
-                            <!-- Glowing Avatar Container -->  
-                            <div class="relative w-20 h-20 md:w-24 md:h-24 rounded-full p-[3px] bg-gradient-to-tr from-primary via-tertiary to-secondary shadow-[0_0_30px_rgba(232,141,103,0.3)] shrink-0 group-hover:scale-105 transition-transform duration-500 hover:shadow-[0_0_40px_rgba(226,184,101,0.4)] cursor-pointer">  
-                                <!-- Avatar Image -->  
-                                <img src="gaurav.jpg" alt="Gaurav" class="w-full h-full object-cover rounded-full border-4 border-stone-800 bg-stone-700">  
-                                <!-- Verification Badge -->  
-                                <div class="absolute -bottom-1 -right-1 bg-stone-800 rounded-full p-1 shadow-lg">  
-                                    <span class="material-symbols-outlined text-secondary text-lg block">verified</span>  
-                                </div>  
-                            </div>  
-
-                            <!-- Name -->  
-                            <div class="text-5xl md:text-7xl font-black text-white tracking-tight drop-shadow-[0_2px_15px_rgba(232,141,103,0.4)] relative inline-block">  
-                                Gaurav   
-                                <span class="absolute -top-4 -right-8 text-secondary text-3xl animate-pulse">✨</span>  
-                            </div>  
-                        </div>  
-                          
-                        <!-- Hidden input to keep script happy -->  
-                        <input type="hidden" id="friend-name" value="Gaurav">  
-                    </div>  
-
-                    <button id="celebrate-btn"  
-                        class="w-full relative overflow-hidden group py-5 rounded-2xl bg-stone-800 text-white text-xl md:text-2xl font-black font-headline tracking-tighter hover:scale-[1.02] shadow-xl hover:shadow-[0_0_40px_rgba(226,184,101,0.3)] active:scale-95 transition-all flex items-center justify-center gap-3 border border-white/5">  
-                        <div class="absolute inset-0 bg-gradient-to-r from-secondary to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>  
-                        <span class="relative z-10 flex items-center gap-3">Feel the Joy ✨</span>  
-                    </button>  
-                </div>  
-            </div>  
-
-            <!-- Share Surpise Section -->  
-            <div id="share-btn-container" class="share-btn-container justify-center items-center mt-12 w-full">  
-                <button id="share-btn"  
-                    class="bg-surface-container-highest text-secondary border border-secondary/40 px-8 py-4 rounded-full font-bold text-lg hover:bg-secondary hover:text-on-secondary-fixed transition-all flex items-center gap-3 shadow-[0_0_20px_rgba(226,184,101,0.3)]">  
-                    Share this surprise 💌  
-                    <span class="material-symbols-outlined">send</span>  
-                </button>  
-            </div>  
-        </div>  
-    </main>  
-
-    <!-- Base UI that gets hidden conditionally -->  
-    <div id="extra-content"  
-        class="w-full max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-6 opacity-100 transition-opacity duration-500 mb-32 z-10 relative">  
-        <div class="glass-panel p-8 rounded-lg border-t border-outline-variant/15 text-left space-y-4">  
-            <span class="material-symbols-outlined text-secondary text-4xl">wb_sunny</span>  
-            <h3 class="font-headline font-bold text-xl">Warm Atmosphere</h3>  
-            <p class="text-stone-400 text-sm">A beautiful celebration crafted with warmth and elegance.</p>  
-        </div>  
-        <div class="glass-panel p-8 rounded-lg border-t border-outline-variant/15 text-left space-y-4">  
-            <span class="material-symbols-outlined text-primary text-4xl">local_florist</span>  
-            <h3 class="font-headline font-bold text-xl">Organic Gifts</h3>  
-            <p class="text-stone-400 text-sm">Curated handcrafted gifts for our lovely guests.</p>  
-        </div>  
-        <div class="glass-panel p-8 rounded-lg border-t border-outline-variant/15 text-left space-y-4">  
-            <span class="material-symbols-outlined text-tertiary text-4xl">auto_awesome</span>  
-            <h3 class="font-headline font-bold text-xl">Joyful Memories</h3>  
-            <p class="text-stone-400 text-sm">Creating an unforgettable experience full of joy.</p>  
-        </div>  
-    </div>  
-</div>  
-
-<script>  
-    document.addEventListener('DOMContentLoaded', () => {  
-        const celebrateBtn = document.getElementById('celebrate-btn');  
-        const nameInput = document.getElementById('friend-name');  
-        const headline = document.getElementById('main-headline');  
-        const subHeadline = document.getElementById('sub-headline');  
-        const appWrapper = document.getElementById('app-wrapper');  
-        const inputCard = document.getElementById('input-card');  
-        const extraContent = document.getElementById('extra-content');  
-        const shareContainer = document.getElementById('share-btn-container');  
-        const shareBtn = document.getElementById('share-btn');  
-
-        // Share Button Functionality  
-        shareBtn.addEventListener('click', async () => {  
-            const shareData = {  
-                title: 'The Neon Gala Celebration',  
-                text: 'You are invited! Join the immersive neon birthday celebration! 🎉',  
-                url: window.location.href  
-            };  
-
-            try {  
-                if (navigator.share) {  
-                    // Triggers native mobile share sheet  
-                    await navigator.share(shareData);  
-                } else {  
-                    // Fallback for desktops: copy to clipboard  
-                    await navigator.clipboard.writeText(window.location.href);  
-                    const originalText = shareBtn.innerHTML;  
-                    shareBtn.innerHTML = `Link Copied! ✨ <span class="material-symbols-outlined">check_circle</span>`;  
-                    setTimeout(() => shareBtn.innerHTML = originalText, 3000);  
-                }  
-            } catch (err) {  
-                console.error('Sharing failed', err);  
-            }  
-        });  
-
-        // Audio assets mapping (using standard royalty-free/public CDNs)  
-        const popSound = new Audio('https://cdn.pixabay.com/download/audio/2022/03/15/audio_24a2c07011.mp3?filename=pop-39222.mp3');  
-        const cheerSound = new Audio('https://cdn.pixabay.com/download/audio/2021/08/04/audio_0625c1539c.mp3?filename=small-crowd-applause-and-cheers-101138.mp3');  
-        const musicSound = new Audio('https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3?filename=electronic-future-beats-117997.mp3');  
-        musicSound.loop = true;  
-        musicSound.volume = 0.4;            20%,
+            20%,
             40%,
             60%,
             80% {
@@ -671,7 +314,7 @@
             class="fixed top-0 w-full z-50 border-b border-white/10 bg-stone-900/60 backdrop-blur-xl flex justify-between items-center px-8 h-20 shadow-[0_0_40px_rgba(226,184,101,0.15)] font-['Plus_Jakarta_Sans'] tracking-tight">
             <div
                 class="text-2xl font-bold tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
-                Warm Gala</div>
+            Joy Brust</div>
             <div class="flex items-center gap-2 text-xs sm:text-sm text-stone-300 font-medium bg-surface/50 px-3 py-1.5 rounded-full border border-white/5 shadow-inner">
                 <span class="hidden sm:inline">Created by</span>
                 <span class="text-transparent bg-clip-text bg-gradient-to-r from-secondary to-primary font-bold">Angsuman Gowami</span>
@@ -732,13 +375,13 @@
 
                                 <!-- Name -->
                                 <div class="text-5xl md:text-7xl font-black text-white tracking-tight drop-shadow-[0_2px_15px_rgba(232,141,103,0.4)] relative inline-block">
-                                    Gaurav 
+                                    Rajdeep
                                     <span class="absolute -top-4 -right-8 text-secondary text-3xl animate-pulse">✨</span>
                                 </div>
                             </div>
                             
                             <!-- Hidden input to keep script happy -->
-                            <input type="hidden" id="friend-name" value="Gaurav">
+                            <input type="hidden" id="friend-name" value="Rajdeep">
                         </div>
 
                         <button id="celebrate-btn"
@@ -763,7 +406,7 @@
         <!-- Base UI that gets hidden conditionally -->
         <div id="extra-content"
             class="w-full max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-6 opacity-100 transition-opacity duration-500 mb-32 z-10 relative">
-            <div class="glass-panel p-8 rounded-lg border-t border-outline-variant/15 text-left space-y-4">
+            <!-- <div class="glass-panel p-8 rounded-lg border-t border-outline-variant/15 text-left space-y-4">
                 <span class="material-symbols-outlined text-secondary text-4xl">wb_sunny</span>
                 <h3 class="font-headline font-bold text-xl">Warm Atmosphere</h3>
                 <p class="text-stone-400 text-sm">A beautiful celebration crafted with warmth and elegance.</p>
@@ -777,7 +420,7 @@
                 <span class="material-symbols-outlined text-tertiary text-4xl">auto_awesome</span>
                 <h3 class="font-headline font-bold text-xl">Joyful Memories</h3>
                 <p class="text-stone-400 text-sm">Creating an unforgettable experience full of joy.</p>
-            </div>
+            </div> -->
         </div>
     </div>
 
@@ -796,7 +439,7 @@
             // Share Button Functionality
             shareBtn.addEventListener('click', async () => {
                 const shareData = {
-                    title: 'Gaurav birthday',
+                    title: 'The Neon Gala Celebration',
                     text: 'You are invited! Join the immersive neon birthday celebration! 🎉',
                     url: window.location.href
                 };
