@@ -530,6 +530,18 @@
                     headline.innerHTML = '';
                     headline.className = "wave-text font-black tracking-normal sm:tracking-widest text-center mt-12 md:mt-20";
 
+                    // Inject the guest's profile pic dynamically
+                    const avatarDiv = document.createElement('div');
+                    avatarDiv.className = "relative w-32 h-32 md:w-48 md:h-48 rounded-full p-[4px] bg-gradient-to-tr from-primary via-tertiary to-secondary shadow-[0_0_40px_rgba(37,99,235,0.4)] shrink-0 mx-auto mb-8 opacity-0 scale-50 transition-all duration-1000 z-10";
+                    avatarDiv.innerHTML = `<img src="gaurav.jpg" alt="Guest" class="w-full h-full object-cover rounded-full border-4 border-white bg-stone-100 shadow-xl">`;
+                    headline.parentNode.insertBefore(avatarDiv, headline);
+
+                    setTimeout(() => {
+                        avatarDiv.style.opacity = '1';
+                        avatarDiv.style.transform = 'scale(1)';
+                        setTimeout(() => { avatarDiv.style.animation = 'giftFloat 4s ease-in-out infinite'; }, 1000);
+                    }, 100);
+
                     const lines = ["HAPPY BIRTHDAY", name];
                     cheerSound.play().catch(() => { });
 
